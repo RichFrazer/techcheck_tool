@@ -1,256 +1,258 @@
 Group {
- name tech_check_tool
- selected true
- xpos -202
- ypos -101
- addUserKnob {20 User}
- addUserKnob {4 view M {Comp Plate Difference Edges "Low frequency" "High / Negative values" NaN "" "" "" ""}}
- view Difference
- addUserKnob {26 ""}
- addUserKnob {7 tolerance l "Difference tolerance"}
- tolerance 0.2
- addUserKnob {7 edge_size l "Edge Size" R 0 10}
- edge_size 33
- addUserKnob {7 low_freq_blur l "Low Frequncy blur" R 0 10}
- low_freq_blur 5
- addUserKnob {7 HighValue l "High Values cutoff"}
- HighValue 55
- addUserKnob {26 ""}
- addUserKnob {26 version l "" +STARTLINE T "Tech Check Tool v1.1 - Richard Frazer"}
+inputs 2
+name tech_check_tool22
+label "\[value view]"
+selected true
+xpos 1913
+ypos 842
+addUserKnob {20 User}
+addUserKnob {4 view M {Comp Plate Difference Edges "Low frequency" "High / Negative values" NaN "" "" "" ""}}
+view Difference
+addUserKnob {26 ""}
+addUserKnob {7 tolerance l "Difference tolerance"}
+tolerance 0.2
+addUserKnob {7 edge_size l "Edge Size" R 0 10}
+edge_size 33
+addUserKnob {7 low_freq_blur l "Low Frequncy blur" R 0 10}
+low_freq_blur 5
+addUserKnob {7 HighValue l "High Values cutoff"}
+HighValue 55
+addUserKnob {26 ""}
+addUserKnob {26 version l "" +STARTLINE T "Tech Check Tool v1.1 - Richard Frazer"}
 }
- Input {
-  inputs 0
-  name COMP
-  xpos -739
-  ypos 452
-  number 1
- }
- Dot {
-  name Dot10
-  xpos -705
-  ypos 559
- }
-set N70cf1c0 [stack 0]
- Dot {
-  name Dot1
-  xpos -836
-  ypos 559
- }
-set N6e279e0 [stack 0]
- Dot {
-  name Dot5
-  xpos -1121
-  ypos 579
- }
- Dot {
-  name Dot11
-  xpos -1121
-  ypos 648
- }
-set N6e2b800 [stack 0]
- Expression {
-  temp_name0 thr
-  temp_expr0 parent.HighValue
-  expr0 isnan(r)
-  expr1 isnan(g)
-  expr2 isnan(b)
-  name Expression4
-  xpos -1502
-  ypos 755
- }
- Expression {
-  expr0 clamp(r+g+b)
-  expr1 clamp(r+g+b)
-  expr2 clamp(r+g+b)
-  expr3 clamp(r+g+b)
-  name Expression5
-  xpos -1502
-  ypos 804
- }
-set N74ee300 [stack 0]
- Dot {
-  name Dot13
-  xpos -1468
-  ypos 1024
- }
-push $N6e2b800
- Expression {
-  temp_name0 thr
-  temp_expr0 parent.HighValue
-  expr0 r>thr?1:0
-  expr1 g>thr?1:0
-  expr2 b>thr?1:0
-  expr3 a>thr?1:0
-  name Expression2
-  xpos -1271
-  ypos 739
- }
-push $N6e2b800
- Expression {
-  expr0 r<0?1:0
-  expr1 g<0?1:0
-  expr2 b<0?1:0
-  expr3 a>0.01?1:0
-  name Expression1
-  xpos -1155
-  ypos 738
- }
- Merge2 {
-  inputs 2
-  operation plus
-  name Merge3
-  xpos -1155
-  ypos 814
- }
-set N74cab30 [stack 0]
- Dot {
-  name Dot7
-  xpos -1121
-  ypos 993
- }
-push $N6e279e0
- Blur {
-  size {{parent.low_freq_blur}}
-  name Blur1
-  xpos -978
-  ypos 686
- }
-push $N6e279e0
- Merge2 {
-  inputs 2
-  operation minus
-  name Merge1
-  xpos -870
-  ypos 765
- }
- Dot {
-  name Dot12
-  xpos -836
-  ypos 938
- }
-push $N70cf1c0
- Dot {
-  name Dot3
-  xpos -552
-  ypos 559
- }
-set N74957a0 [stack 0]
- Input {
-  inputs 0
-  name PLATE
-  selected true
-  xpos -126
-  ypos 458
- }
- Dot {
-  name Dot4
-  xpos -83
-  ypos 614
- }
-set N749ebd0 [stack 0]
- Difference {
-  inputs 2
-  gain 100
-  name Difference7
-  xpos -462
-  ypos 612
- }
- Expression {
-  temp_name0 tol
-  temp_expr0 parent.tolerance
-  expr3 a>tol?1:0
-  name Expression15
-  xpos -462
-  ypos 662
- }
- Shuffle {
-  red alpha
-  green black
-  blue black
-  name Shuffle7
-  xpos -462
-  ypos 707
- }
-set N751d9d0 [stack 0]
- EdgeDetectWrapper {
-  name EdgeDetect1
-  xpos -416
-  ypos 759
- }
- FilterErode {
-  size {{-parent.edge_size}}
-  name FilterErode1
-  xpos -416
-  ypos 797
- }
-push $N751d9d0
- Merge2 {
-  inputs 2
-  name Merge2
-  xpos -462
-  ypos 865
- }
-push $N74957a0
- Dot {
-  name Dot2
-  xpos -246
-  ypos 559
- }
- ShuffleCopy {
-  inputs 2
-  name ShuffleCopy1
-  xpos -280
-  ypos 865
- }
- Premult {
-  name Premult1
-  xpos -280
-  ypos 905
- }
- Dot {
-  name Dot8
-  xpos -246
-  ypos 947
- }
-push $N751d9d0
-push $N74957a0
- Merge2 {
-  inputs 2
-  operation screen
-  name Merge7
-  xpos -586
-  ypos 754
- }
- Dot {
-  name Dot9
-  xpos -552
-  ypos 952
- }
-push $N749ebd0
- Dot {
-  name Dot6
-  xpos -83
-  ypos 1014
- }
-push $N70cf1c0
- Switch {
-  inputs 7
-  which {{parent.view}}
-  name Switch1
-  xpos -729
-  ypos 1075
- }
- Output {
-  name Output1
-  xpos -729
-  ypos 1159
- }
-push $N74ee300
-push $N74cab30
- Merge2 {
-  inputs 2
-  name Merge4
-  xpos -1244
-  ypos 883
- }
+Input {
+inputs 0
+name COMP
+xpos -739
+ypos 371
+}
+Dot {
+name Dot10
+xpos -705
+ypos 559
+}
+set Nba402cb0 [stack 0]
+Dot {
+name Dot1
+xpos -836
+ypos 559
+}
+set Na2f2f310 [stack 0]
+Dot {
+name Dot5
+xpos -1121
+ypos 579
+}
+Dot {
+name Dot11
+xpos -1121
+ypos 648
+}
+set Nce31c840 [stack 0]
+Expression {
+temp_name0 thr
+temp_expr0 parent.HighValue
+expr0 isnan(r)
+expr1 isnan(g)
+expr2 isnan(b)
+name Expression4
+xpos -1502
+ypos 755
+}
+Expression {
+expr0 clamp(r+g+b)
+expr1 clamp(r+g+b)
+expr2 clamp(r+g+b)
+expr3 clamp(r+g+b)
+name Expression5
+xpos -1502
+ypos 804
+}
+set N952b6f90 [stack 0]
+Dot {
+name Dot13
+xpos -1468
+ypos 1024
+}
+push $Nce31c840
+Expression {
+temp_name0 thr
+temp_expr0 parent.HighValue
+expr0 r>thr?1:0
+expr1 g>thr?1:0
+expr2 b>thr?1:0
+expr3 a>thr?1:0
+name Expression2
+xpos -1271
+ypos 739
+}
+push $Nce31c840
+Expression {
+expr0 r<0?1:0
+expr1 g<0?1:0
+expr2 b<0?1:0
+expr3 a>0.01?1:0
+name Expression1
+xpos -1155
+ypos 738
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge3
+xpos -1155
+ypos 814
+}
+set N98176790 [stack 0]
+Dot {
+name Dot7
+xpos -1121
+ypos 993
+}
+push $Na2f2f310
+Blur {
+size {{parent.low_freq_blur}}
+name Blur1
+xpos -978
+ypos 686
+}
+push $Na2f2f310
+Merge2 {
+inputs 2
+operation minus
+name Merge1
+xpos -870
+ypos 765
+}
+Dot {
+name Dot12
+xpos -836
+ypos 938
+}
+push $Nba402cb0
+Dot {
+name Dot3
+xpos -552
+ypos 559
+}
+set Na2f37140 [stack 0]
+Input {
+inputs 0
+name PLATE
+xpos -117
+ypos 366
+number 1
+}
+Dot {
+name Dot4
+xpos -83
+ypos 614
+}
+set N98504fe0 [stack 0]
+Difference {
+inputs 2
+gain 100
+name Difference7
+xpos -462
+ypos 612
+}
+Expression {
+temp_name0 tol
+temp_expr0 parent.tolerance
+expr3 a>tol?1:0
+name Expression15
+xpos -462
+ypos 662
+}
+Shuffle {
+red alpha
+green black
+blue black
+name Shuffle7
+xpos -462
+ypos 707
+}
+set N9ab6f310 [stack 0]
+EdgeDetectWrapper {
+name EdgeDetect1
+xpos -416
+ypos 759
+}
+FilterErode {
+size {{-parent.edge_size}}
+name FilterErode1
+xpos -416
+ypos 797
+}
+push $N9ab6f310
+Merge2 {
+inputs 2
+name Merge2
+xpos -462
+ypos 865
+}
+push $Na2f37140
+Dot {
+name Dot2
+xpos -246
+ypos 559
+}
+ShuffleCopy {
+inputs 2
+name ShuffleCopy1
+xpos -280
+ypos 865
+}
+Premult {
+name Premult1
+xpos -280
+ypos 905
+}
+Dot {
+name Dot8
+xpos -246
+ypos 947
+}
+push $N9ab6f310
+push $Na2f37140
+Merge2 {
+inputs 2
+operation screen
+name Merge7
+xpos -586
+ypos 754
+}
+Dot {
+name Dot9
+xpos -552
+ypos 952
+}
+push $N98504fe0
+Dot {
+name Dot6
+xpos -83
+ypos 1014
+}
+push $Nba402cb0
+Switch {
+inputs 7
+which {{parent.view}}
+name Switch1
+selected true
+xpos -729
+ypos 1075
+}
+Output {
+name Output1
+xpos -729
+ypos 1159
+}
+push $N952b6f90
+push $N98176790
+Merge2 {
+inputs 2
+name Merge4
+xpos -1244
+ypos 883
+}
 end_group
