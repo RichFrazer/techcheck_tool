@@ -9,7 +9,7 @@ Group {
  view Difference
  addUserKnob {26 ""}
  addUserKnob {7 tolerance l "Difference tolerance"}
- tolerance 0.2
+ tolerance 0.05
  addUserKnob {7 edge_size l "Edge Size" R 0 10}
  edge_size 33
  addUserKnob {7 low_freq_blur l "Low Frequncy blur" R 0 10}
